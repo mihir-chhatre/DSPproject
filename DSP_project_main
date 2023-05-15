@@ -1,0 +1,60 @@
+# Importing tkinter library and os module
+import tkinter as tk
+import os
+
+# Defining the main window class
+class MainWindow:
+    # Initializing the class constructor
+    def __init__(self, master):
+        # Initializing the window instance
+        self.master = master
+        # Setting the window title
+        master.title("Main Window")
+        # Calling the create_buttons() method
+        self.create_buttons()
+        # Initializing the current_window instance variable
+        self.current_window = None
+
+    # Creating the buttons on the main window
+    def create_buttons(self):
+        # Defining the command functions for each button
+        def run_pitch_shift():
+            os.system('python pitch_shift_mic.py')
+        def run_whisper():
+            os.system('python whisper_real.py')
+        def run_robo():
+            os.system('python robo.py')
+
+        # Creating the "Whisper" button and placing it on the grid
+        whisper_button = tk.Button(self.master, text="Whisper", command=run_whisper, font=("Helvetica", 20))
+        whisper_button.grid(row=0, column=0, padx=10, pady=10)
+        
+        # Creating the "Robot" button and placing it on the grid
+        robot_button = tk.Button(self.master, text="Robot", command=run_robo, font=("Helvetica", 20))
+        robot_button.grid(row=0, column=1, padx=10, pady=10)
+        
+        # Creating the "Pitch shift" button and placing it on the grid
+        phase_shift_button = tk.Button(self.master, text="Pitch shift", command=run_pitch_shift, font=("Helvetica", 20))
+        phase_shift_button.grid(row=0, column=2, padx=10, pady=10)
+        
+        # Creating an empty label and placing it on the grid
+        empty_label = tk.Label(self.master, text="")
+        empty_label.grid(row=1, column=0)
+        
+        # Creating the "Quit" button and placing it on the grid
+        quit_button = tk.Button(self.master, text="Quit", command=self.master.quit, fg="red", bg="white", font=("Helvetica", 20))
+        quit_button.grid(row=2, column=1, padx=10, pady=10)
+
+    # Closing a window
+    def close_window(self, window):
+        window.destroy()
+        self.current_window = None
+
+# Creating the root window
+root = tk.Tk()
+# Creating the MainWindow instance
+main_window = MainWindow(root)
+# Setting the window size
+root.geometry("400x150")
+# Running the main loop
+root.mainloop()
